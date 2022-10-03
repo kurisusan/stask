@@ -1,15 +1,26 @@
 import { Task, TaskData } from "./Task";
 import { stylesheet } from 'typestyle'
+import { useQuery } from 'react-query'
+import { GET_TASKS } from "../queries";
 
-interface Props {
-    tasks: TaskData[]
+export interface TaskRepo {
+    get(): Promise<TaskData>[]
+    write(taskId: string, data: TaskData): Promise<void> 
 }
 
-export function List(props: Props) {
-    
+interface Props {
+    repo: TaskRepo
+}
+
+export function List({
+    repo,
+}: Props) {
+    const { data: tasks } = useQuery([GET_TASKS], () => {
+        return repo.get()
+    })
     return (
         <div class={sheet.list}>
-            {props.tasks.map((t) => (
+            {tasks.map((t) => (
                 <Task
                     data={t}
                 />

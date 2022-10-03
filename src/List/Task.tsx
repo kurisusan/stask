@@ -1,6 +1,7 @@
 import { stylesheet } from 'typestyle'
 
 export interface TaskData {
+    id: string
     title: string
     description?: string
     creation: Date
@@ -14,20 +15,26 @@ export function Task({
     data
 }: Props) {
     return (
-        <div class={sheet.task}>
-            <div class={sheet.title}>
-                {data.title}
-            </div>
-            {data.description && (
-                <div class={sheet.description}>
-                    {data.description}
+        <>
+            <div class={sheet.dropZone}></div>
+            <div class={sheet.task}>
+                <div class={sheet.title}>
+                    {data.title}
                 </div>
-            )}
-        </div>
+                {data.description && (
+                    <div class={sheet.description}>
+                        {data.description}
+                    </div>
+                )}
+            </div>
+        </>
     )
 }
 
 const sheet = stylesheet({
+    dropZone: {
+        height: 10,
+    },
     task: {
         border: '1px solid gray',
         borderRadius: 7,
