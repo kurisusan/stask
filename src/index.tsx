@@ -1,12 +1,15 @@
 import { render } from 'preact';
 import { List } from './List';
-import { Task } from './Task';
 
-const mountNode = document.getElementById('app');
 render(<>
     <List
-        tasks={[
-            <Task title='My first task'/>
-        ]}
+        tasks={[{
+            title: 'Create a stack of tasks',
+            description: 'Create an application to stack tasks',
+            creation: new Date(),
+        }, {
+            title: 'Boring task',
+            creation: new Date(),
+        }]}
     />
 </>, document.body);
