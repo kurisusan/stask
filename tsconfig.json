@@ -5,5 +5,7 @@
     "jsxImportSource": "preact/compat",
     "jsxFactory": "h",
     "jsxFragmentFactory": "Fragment",
+    "esModuleInterop": true,
+    "strictNullChecks": true
   }
 }

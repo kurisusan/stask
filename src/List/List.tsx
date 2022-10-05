@@ -1,38 +1,41 @@
-import { Task, TaskData } from "./Task";
+import { Task, TaskData } from './Task'
 import { stylesheet } from 'typestyle'
-import { useQuery } from 'react-query'
-import { GET_TASKS } from "../queries";
+
+export interface TaskUpdateData {
+  title: string
+  description?: string
+}
 
 export interface TaskRepo {
-    get(): Promise<TaskData>[]
-    write(taskId: string, data: TaskData): Promise<void> 
+  get: () => Promise<TaskData[]>
+  update: (taskId: string, data: TaskData) => Promise<void>
+  create: (data: TaskData) => Promise<void>
+  delete: (taskId: string) => Promise<void>
 }
 
 interface Props {
-    repo: TaskRepo
+  tasks: TaskData[]
 }
 
-export function List({
-    repo,
+export function List ({
+  tasks,
 }: Props) {
-    const { data: tasks } = useQuery([GET_TASKS], () => {
-        return repo.get()
-    })
-    return (
-        <div class={sheet.list}>
-            {tasks.map((t) => (
-                <Task
-                    data={t}
-                />
-            ))}
-        </div>
-    )
+  return (
+    <div className={sheet.list}>
+        {tasks.map((task) => (
+            <Task
+                key={task.id}
+                data={task}
+            />
+        ))}
+    </div>
+  )
 }
 
 const sheet = stylesheet({
-    list: {
-        maxWidth: 300,
-        margin: 'auto',
-        fontFamily: `'Open Sans', sans-serif`
-    }
+  list: {
+    maxWidth: 300,
+    margin: 'auto',
+    fontFamily: '\'Open Sans\', sans-serif'
+  }
 })

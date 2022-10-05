@@ -1,3 +1,5 @@
 node_modules
 .parcel-cache
 dist
+*firebaseConfig.ts
+yarn-error.log
