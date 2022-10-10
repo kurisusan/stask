@@ -1,4 +1,4 @@
-import { render } from 'preact'
+import { render } from 'react-dom'
 import { FirebaseTaskRepo } from './repo/FirebaseTaskRepo'
 import { List } from './List/List'
 

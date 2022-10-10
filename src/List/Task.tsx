@@ -1,4 +1,3 @@
-import { JSX } from 'preact'
 import { stylesheet } from 'typestyle'
 
 export interface TaskData {

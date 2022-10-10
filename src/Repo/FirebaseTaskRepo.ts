@@ -3,6 +3,7 @@ import { initializeApp } from 'firebase/app'
 import { addDoc, collection, CollectionReference, DocumentData, getFirestore } from 'firebase/firestore'
 import { TaskRepo } from '../List/List'
 import { firebaseConfig } from './firebaseConfig'
+import { initFirebaseAuthUi } from './FirebaseAuth'
 
 interface TaskDoc {
   title: string
