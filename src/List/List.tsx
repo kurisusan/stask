@@ -34,7 +34,7 @@ export function List ({
 
 const sheet = stylesheet({
   list: {
-    maxWidth: 300,
+    maxWidth: 400,
     margin: 'auto',
     fontFamily: '\'Open Sans\', sans-serif'
   }
