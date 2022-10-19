@@ -1,4 +1,5 @@
 import { stylesheet } from 'typestyle'
+import { PaperFrame } from './PaperFrame'
 
 export interface TaskData {
   id: string
@@ -15,12 +16,12 @@ export function Task ({ data }: Props): JSX.Element {
   return (
     <>
       <div className={sheet.dropZone}></div>
-      <div className={sheet.task}>
+      <PaperFrame>
         <div className={sheet.title}>{data.title}</div>
         {data.description && (
           <div className={sheet.description}>{data.description}</div>
         )}
-      </div>
+      </PaperFrame>
     </>
   )
 }
@@ -28,12 +29,6 @@ export function Task ({ data }: Props): JSX.Element {
 const sheet = stylesheet({
   dropZone: {
     height: 10,
-  },
-  task: {
-    border: '1px solid gray',
-    borderRadius: 7,
-    margin: '2px 4px',
-    padding: '10px 12px',
   },
   title: {
     fontSize: 16,

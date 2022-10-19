@@ -1,18 +1,22 @@
 import { Task, TaskData } from './Task'
 import { stylesheet } from 'typestyle'
-import { useQuery } from 'react-query'
+import { useMutation, useQuery } from 'react-query'
 import { GET_TASKS } from '../queries'
 import { Loader } from './Loader'
+import { ButtonAddTask } from './ButtonAddTask'
+import { useState } from 'react'
 
 export interface TaskUpdateData {
   title: string
   description?: string
 }
 
+type TaskDataCreate = Pick<TaskData, 'title' | 'description'>
+
 export interface TaskRepo {
   get: () => Promise<TaskData[]>
   update: (taskId: string, data: TaskData) => Promise<void>
-  create: (data: TaskData) => Promise<void>
+  create: (data: TaskDataCreate) => Promise<void>
   delete: (taskId: string) => Promise<void>
 }
 
@@ -23,12 +27,21 @@ interface Props {
 export function List ({
   repo,
 }: Props) {
+  // Task to be created or edited
+  // If no id, a new one is created
+  const [editingTask, setEditingTask] = useState<Partial<TaskData>>()
   const {
     data: tasks = [],
     isLoading,
   } = useQuery([GET_TASKS], async () => await repo.get())
+  const {
+    mutate: addTask,
+  } = useMutation(async (newTask: TaskDataCreate) => await repo.create(newTask))
   return (
     <div className={sheet.list}>
+      <ButtonAddTask
+        onClick={() => setEditingTask({})}
+      />
       <div className={sheet.loaderContainer}>
         {isLoading && <Loader/>}
       </div>
