@@ -18,7 +18,17 @@ export class FirebaseTaskRepo implements TaskRepo {
   }
 
   public async get (): Promise<TaskData[]> {
-    throw Error('TODO')
+    // TODO: implement get
+    return [{
+      id: '0',
+      title: 'Create a stack of tasks',
+      description: 'Create an application to stack tasks',
+      creation: new Date(),
+    }, {
+      id: '1',
+      title: 'Boring task',
+      creation: new Date(),
+    }]
   }
 
   public async update (taskId: string, data: TaskDoc): Promise<void> {

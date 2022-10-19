@@ -1,5 +1,8 @@
 import { Task, TaskData } from './Task'
 import { stylesheet } from 'typestyle'
+import { useQuery } from 'react-query'
+import { GET_TASKS } from '../queries'
+import { Loader } from './Loader'
 
 export interface TaskUpdateData {
   title: string
@@ -14,20 +17,27 @@ export interface TaskRepo {
 }
 
 interface Props {
-  tasks: TaskData[]
+  repo: TaskRepo
 }
 
 export function List ({
-  tasks,
+  repo,
 }: Props) {
+  const {
+    data: tasks = [],
+    isLoading,
+  } = useQuery([GET_TASKS], async () => await repo.get())
   return (
     <div className={sheet.list}>
-        {tasks.map((task) => (
-            <Task
-                key={task.id}
-                data={task}
-            />
-        ))}
+      <div className={sheet.loaderContainer}>
+        {isLoading && <Loader/>}
+      </div>
+      {tasks.map((task) => (
+        <Task
+          key={task.id}
+          data={task}
+        />
+      ))}
     </div>
   )
 }
@@ -37,5 +47,9 @@ const sheet = stylesheet({
     maxWidth: 400,
     margin: 'auto',
     fontFamily: '\'Open Sans\', sans-serif'
+  },
+  loaderContainer: {
+    display: 'flex',
+    justifyContent: 'space-around',
   }
 })
